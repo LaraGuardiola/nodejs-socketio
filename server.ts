@@ -1,21 +1,14 @@
-import express, { Request, Response } from 'express';
 import { Server, Socket } from 'socket.io';
-
-const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-const server = app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
-});
-
 //initialize socket
-const io = new Server(server, { 
+const io = new Server({ 
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
   }
-});  
+})
 
 //on connection
 io.on('connection', (socket: Socket) => {
@@ -36,10 +29,8 @@ io.on('connection', (socket: Socket) => {
 
 })
 
-app.get('/', (req: Request, res: Response) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.send("test")
-})
+io.listen(PORT as number)
+
 
 
 
