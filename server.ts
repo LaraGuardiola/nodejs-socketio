@@ -29,8 +29,12 @@ io.on('connection', (socket: Socket) => {
 
 })
 
-io.listen(PORT as number)
+const server = () => {
+  io.listen(PORT as number)
+  console.log(`Socket IO started on ${PORT}`)
+}
 
+server()
 
 
 
