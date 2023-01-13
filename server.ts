@@ -20,13 +20,6 @@ io.on('connection', (socket: Socket) => {
     socket.broadcast.emit("response", arg)
   });
 
-  //on input message
-  socket.on("inputMessage", (length: number) => {
-    if(length > 0){
-      console.log(`${socket.id} is writing...`)
-    }
-  });
-
 })
 
 const server = () => {
