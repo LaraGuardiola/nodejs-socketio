@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 //initialize socket
 const io = new Server({ 
   cors: {
-    origin: ["https://angular-clientio.vercel.app/", "http://localhost:4200"],
+    origin: "https://angular-clientio.vercel.app/",
     methods: ["GET", "POST"]
   }
 })
