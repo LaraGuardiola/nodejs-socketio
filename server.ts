@@ -12,7 +12,7 @@ const io = new Server({
 
 //on connection
 io.on('connection', (socket: Socket) => {
-  console.log(`${socket.id} has connected`)
+  console.log(`${socket.id} has connected - ${new Date()}`)
 
   //on message
   socket.on("message", (arg: string) => {
