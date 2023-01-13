@@ -19,7 +19,6 @@ io.on('connection', (socket: Socket) => {
     console.log(arg);
     socket.broadcast.emit("response", arg)
   });
-
 })
 
 const server = () => {
