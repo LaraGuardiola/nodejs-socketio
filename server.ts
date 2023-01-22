@@ -5,8 +5,8 @@ const PORT = process.env.PORT || 3000;
 //initialize socket
 const io = new Server({ 
   cors: {
-    origin: "https://angular-clientio.vercel.app",
-    // origin: "http://localhost:4200",
+    // origin: "https://angular-clientio.vercel.app",
+    origin: "http://localhost:4200",
     methods: ["GET", "POST"]
   }
 })
@@ -14,10 +14,12 @@ const io = new Server({
 //on connection
 io.on('connection', async (socket: Socket) => {
   
-  console.log(`${socket.id} has connected - ${new Date()}`)
+  console.log(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}: ${socket.id} has connected`)
   
-  setOnlineCount(socket)
-
+  setInterval(() => {
+    setOnlineCount(socket)
+  },1000)
+  
   //on message
   socket.on("message", (arg: string) => {
     sendMessage(socket, arg)
@@ -31,7 +33,7 @@ const setOnlineCount = async (socket: Socket) => {
 }
 
 const sendMessage = async (socket: Socket, arg: string) => {
-  console.log(`${new Date()}: ${arg}`);
+  console.log(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}: ${arg}`);
   socket.broadcast.emit("response", arg)
 }
 
