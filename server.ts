@@ -1,4 +1,5 @@
 import { Server, Socket } from 'socket.io';
+import { Client } from './interfaces/client.interface'
 
 const PORT = process.env.PORT || 3000;
 
@@ -21,8 +22,8 @@ io.on('connection', async (socket: Socket) => {
   },1000)
   
   //on message
-  socket.on("message", (arg: string) => {
-    sendMessage(socket, arg)
+  socket.on("message", (client: Client) => {
+    sendMessage(socket, client)
   });
 })
 
@@ -32,9 +33,9 @@ const setOnlineCount = async (socket: Socket) => {
   socket.broadcast.emit("onlineCount", clientsCount)
 }
 
-const sendMessage = async (socket: Socket, arg: string) => {
-  console.log(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}: ${arg}`);
-  socket.broadcast.emit("response", arg)
+const sendMessage = async (socket: Socket, client: Client) => {
+  console.log(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} - ${client.name}: ${client.arg}`);
+  socket.broadcast.emit("response", client)
 }
 
 const server = () => {
