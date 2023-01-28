@@ -8,6 +8,7 @@ const io = new Server({
   cors: {
     origin: "https://angular-clientio.vercel.app",
     // origin: "http://localhost:4200",
+    // origin: "http://192.168.1.39:4200",
     methods: ["GET", "POST"]
   }
 })
@@ -15,7 +16,7 @@ const io = new Server({
 //on connection
 io.on('connection', async (socket: Socket) => {
   
-  console.log(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}: ${socket.id} has connected`)
+  console.log(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} // ${socket.id} has connected`)
   
   setInterval(() => {
     setOnlineCount(socket)
@@ -24,7 +25,11 @@ io.on('connection', async (socket: Socket) => {
   //on message
   socket.on("message", (client: Client) => {
     sendMessage(socket, client)
-  });
+  })
+
+  socket.on("disconnect", () => {
+    console.log(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} // ${socket.id} has disconnected`)
+  })
 })
 
 //sends connected clients
@@ -34,7 +39,7 @@ const setOnlineCount = async (socket: Socket) => {
 }
 
 const sendMessage = async (socket: Socket, client: Client) => {
-  console.log(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} - ${client.name}: ${client.arg}`);
+  console.log(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} // ${client.name}: ${client.arg}`);
   socket.broadcast.emit("response", client)
 }
 
