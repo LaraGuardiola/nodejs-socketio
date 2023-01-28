@@ -14,11 +14,7 @@ const io = new Server({
 })
 
 instrument(io, {
-  auth: {
-    type: "basic",
-    username: "admin",
-    password: "bro" // "changeit" encrypted with bcrypt
-  },
+  auth: false
 })
 
 //on connection
