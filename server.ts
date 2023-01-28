@@ -1,4 +1,5 @@
 import { Server, Socket } from 'socket.io';
+import { instrument } from '@socket.io/admin-ui'
 import { Client } from './interfaces/client.interface'
 
 const PORT = process.env.PORT || 3000;
@@ -6,11 +7,18 @@ const PORT = process.env.PORT || 3000;
 //initialize socket
 const io = new Server({ 
   cors: {
-    origin: "https://angular-clientio.vercel.app",
-    // origin: "http://localhost:4200",
-    // origin: "http://192.168.1.39:4200",
-    methods: ["GET", "POST"]
+    origin: ["https://admin.socket.io","https://angular-clientio.vercel.app"],
+    credentials: true,
+    methods: ["*"]
   }
+})
+
+instrument(io, {
+  auth: {
+    type: "basic",
+    username: "admin",
+    password: process.env.ADMIN_UI as string // "changeit" encrypted with bcrypt
+  },
 })
 
 //on connection
