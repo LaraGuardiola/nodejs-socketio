@@ -17,7 +17,7 @@ instrument(io, {
   auth: {
     type: "basic",
     username: "admin",
-    password: process.env.ADMIN_UI as string // "changeit" encrypted with bcrypt
+    password: "bro" // "changeit" encrypted with bcrypt
   },
 })
 
@@ -54,6 +54,7 @@ const sendMessage = async (socket: Socket, client: Client) => {
 const server = () => {
   io.listen(PORT as number)
   console.log(`Socket IO started on ${PORT}`)
+  console.log(process.env.ADMIN_UI)
 }
 
 server()
