@@ -14,7 +14,8 @@ const io = new Server({
 })
 
 instrument(io, {
-  auth: false
+  auth: false,
+  mode: "development"
 })
 
 //on connection
